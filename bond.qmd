@@ -1,0 +1,28 @@
+---
+title: "The Bond Films"
+format: html
+jupyter: python3
+---
+
+```{python}
+#| label: fig-bond-revenue
+#| fig-cap: "Worldwide revenue of each James Bond film, in US$ millions"
+#| echo: true
+import pandas as pd
+import matplotlib.pyplot as plt
+
+films = pd.read_csv("films.csv")
+bond = films[films["franchise"] == "James Bond"]
+bond = bond.sort_values("year")
+
+fig, ax = plt.subplots(figsize=(7, 4))
+ax.plot(bond["year"], bond["revenue_musd"], marker="o", color="#1B3A6B")
+ax.set_xlabel("Release year")
+ax.set_ylabel("Worldwide revenue (US$ millions)")
+ax.spines[["top", "right"]].set_visible(False)
+plt.tight_layout()
+plt.show()
+```
+
+The dataset covers Bond films released between `{python} int(bond["year"].min())`
+and `{python} int(bond["year"].max())`, as shown in @fig-bond-revenue.

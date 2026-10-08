@@ -1,0 +1,172 @@
+1.
+quarto create project website
+.
+
+2. 
+echo "/_site/" >> .gitignore
+echo "__pycache__/" >> .gitignore
+git add .gitignore
+git commit -m "Add gitignore"
+
+3.
+changed in _quarto.yml file: title changed to "Box Office Numbers"
+
+4.
+rm about.qmd
+
+yaml:
+
+project:
+  type: website
+
+website:
+  title: "Box Office Numbers"
+  navbar:
+     left:
+      - href: index.qmd
+        text: Home
+      - href: budget-revenue.qmd
+        text: "Budget and Revenue"
+      - href: runtime-rating.qmd
+        text: "Runtime and Ratings"
+      - href: bond.qmd
+        text: "The Bond Films"
+      
+
+format:
+  html:
+    theme:
+      - cosmo
+      - brand
+    css: styles.css
+    toc: true
+
+5.
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+
+execute:
+  freeze: auto
+
+6.
+
+---
+title: "Box Office Numbers"
+---
+
+This site analyses a dataset of 104 popular films released between 1980 and 2025, drawn from 20 franchises plus a set of standalone titles. For each film, the data record its release year, franchise, budget and worldwide revenue (in millions of US dollars), runtime in minutes, and IMDb rating. The pages below look at how budget relates to revenue, how runtime relates to ratings, and how the James Bond films compare.
+
+- [Budget and Revenue](budget-revenue.qmd)
+- [Runtime and Ratings](runtime-rating.qmd)
+- [The Bond Films](bond.qmd)
+
+AI usage: I used Claude for rechecking and finding the error of my work.
+
+
+7.
+touch budget-revenue.qmd
+
+---
+title: "Budget and Revenue"
+format: html
+jupyter: python3
+---
+
+Do bigger budgets bring in more money? @fig-budget-revenue plots each film's budget
+against its worldwide revenue. Films with larger budgets tend to earn more, but the
+spread is wide, and some of the biggest returns came from relatively cheap films.
+
+```{python}
+#| label: fig-budget-revenue
+#| fig-cap: "Budget against worldwide revenue for each film, in US$ millions"
+#| echo: true
+import pandas as pd
+import matplotlib.pyplot as plt
+
+films = pd.read_csv("films.csv")
+
+fig, ax = plt.subplots(figsize=(7, 4))
+ax.scatter(films["budget_musd"], films["revenue_musd"], color="#1B3A6B", alpha=0.7)
+ax.set_xlabel("Budget (US$ millions)")
+ax.set_ylabel("Worldwide revenue (US$ millions)")
+ax.spines[["top", "right"]].set_visible(False)
+plt.tight_layout()
+plt.show()
+```
+
+8.
+touch runtime-rating.qmd
+
+---
+title: "Runtime and Ratings"
+format: html
+jupyter: python3
+---
+
+Are longer films rated more highly? @fig-runtime-rating plots each film's runtime
+against its IMDb rating. Longer films tend to score slightly higher, but the
+relationship is weak.
+
+```{python}
+#| label: fig-runtime-rating
+#| fig-cap: "Runtime against IMDb rating for each film"
+#| echo: true
+import pandas as pd
+import matplotlib.pyplot as plt
+
+films = pd.read_csv("films.csv")
+
+fig, ax = plt.subplots(figsize=(7, 4))
+ax.scatter(films["runtime_min"], films["imdb_rating"], color="#1B3A6B", alpha=0.7)
+ax.set_xlabel("Runtime (minutes)")
+ax.set_ylabel("IMDb rating")
+ax.spines[["top", "right"]].set_visible(False)
+plt.tight_layout()
+plt.show()
+```
+
+Mean IMDb rating by decade:
+
+```{python}
+#| echo: true
+films["decade"] = films["year"] // 10 * 10
+films.groupby("decade")["imdb_rating"].mean().round(2)
+```
+
+9.
+touch bond.qmd
+
+---
+title: "The Bond Films"
+format: html
+jupyter: python3
+---
+
+```{python}
+#| label: fig-bond-revenue
+#| fig-cap: "Worldwide revenue of each James Bond film, in US$ millions"
+#| echo: true
+import pandas as pd
+import matplotlib.pyplot as plt
+
+films = pd.read_csv("films.csv")
+bond = films[films["franchise"] == "James Bond"]
+bond = bond.sort_values("year")
+
+fig, ax = plt.subplots(figsize=(7, 4))
+ax.plot(bond["year"], bond["revenue_musd"], marker="o", color="#1B3A6B")
+ax.set_xlabel("Release year")
+ax.set_ylabel("Worldwide revenue (US$ millions)")
+ax.spines[["top", "right"]].set_visible(False)
+plt.tight_layout()
+plt.show()
+```
+
+The dataset covers Bond films released between `{python} int(bond["year"].min())`
+and `{python} int(bond["year"].max())`, as shown in @fig-bond-revenue.
+
+10.

@@ -1,0 +1,27 @@
+---
+title: "Budget and Revenue"
+format: html
+jupyter: python3
+---
+
+Do bigger budgets bring in more money? @fig-budget-revenue plots each film's budget
+against its worldwide revenue. Films with larger budgets tend to earn more, but the
+spread is wide, and some of the biggest returns came from relatively cheap films.
+
+```{python}
+#| label: fig-budget-revenue
+#| fig-cap: "Budget against worldwide revenue for each film, in US$ millions"
+#| echo: true
+import pandas as pd
+import matplotlib.pyplot as plt
+
+films = pd.read_csv("films.csv")
+
+fig, ax = plt.subplots(figsize=(7, 4))
+ax.scatter(films["budget_musd"], films["revenue_musd"], color="#1B3A6B", alpha=0.7)
+ax.set_xlabel("Budget (US$ millions)")
+ax.set_ylabel("Worldwide revenue (US$ millions)")
+ax.spines[["top", "right"]].set_visible(False)
+plt.tight_layout()
+plt.show()
+```

@@ -1,0 +1,12 @@
+{
+  "hash": "b95bbc9022f1eadbadeb6c03f8b81793",
+  "result": {
+    "engine": "jupyter",
+    "markdown": "---\ntitle: \"The Bond Films\"\nformat: html\njupyter: python3\n---\n\n::: {#cell-fig-bond-revenue .cell execution_count=1}\n``` {.python .cell-code}\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\nfilms = pd.read_csv(\"films.csv\")\nbond = films[films[\"franchise\"] == \"James Bond\"]\nbond = bond.sort_values(\"year\")\n\nfig, ax = plt.subplots(figsize=(7, 4))\nax.plot(bond[\"year\"], bond[\"revenue_musd\"], marker=\"o\", color=\"#1B3A6B\")\nax.set_xlabel(\"Release year\")\nax.set_ylabel(\"Worldwide revenue (US$ millions)\")\nax.spines[[\"top\", \"right\"]].set_visible(False)\nplt.tight_layout()\nplt.show()\n```\n\n::: {.cell-output .cell-output-display}\n![Worldwide revenue of each James Bond film, in US$ millions](bond_files/figure-html/fig-bond-revenue-output-1.png){#fig-bond-revenue width=664 height=374}\n:::\n:::\n\n\nThe dataset covers Bond films released between 1995\nand 2021, as shown in @fig-bond-revenue.\n\n",
+    "supporting": [
+      "bond_files"
+    ],
+    "filters": [],
+    "includes": {}
+  }
+}

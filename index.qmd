@@ -1,0 +1,11 @@
+---
+title: "Box Office Numbers"
+---
+
+This site analyses a dataset of 104 popular films released between 1980 and 2025, drawn from 20 franchises plus a set of standalone titles. For each film, the data record its release year, franchise, budget and worldwide revenue (in millions of US dollars), runtime in minutes, and IMDb rating. The pages below look at how budget relates to revenue, how runtime relates to ratings, and how the James Bond films compare.
+
+- [Budget and Revenue](budget-revenue.qmd)
+- [Runtime and Ratings](runtime-rating.qmd)
+- [The Bond Films](bond.qmd)
+
+AI usage: I used Claude for rechecking and finding the error of my work.
