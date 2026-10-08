@@ -1,6 +1,5 @@
 1.
-quarto create project website
-.
+quarto create project website .
 
 2. 
 echo "/_site/" >> .gitignore
