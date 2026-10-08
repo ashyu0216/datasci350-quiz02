@@ -191,6 +191,7 @@ git push
 
 Bonus
 1. 
+
 /* css styles */
 
 a {
@@ -201,6 +202,10 @@ body {
   font-family: Georgia, serif;
 }
 
+quarto render
+git add .
+git commit -m "Add custom styles and dark mode toggle"
+
 2.
 format:
   html:
@@ -209,3 +214,10 @@ format:
       dark: darkly
     css: styles.css
     toc: true
+
+git rm -r --cached .ipynb_checkpoints
+rm -rf .ipynb_checkpoints
+echo ".ipynb_checkpoints/" >> .gitignore
+git add .gitignore
+git commit -m "Remove ipynb checkpoints from tracking"
+git push
