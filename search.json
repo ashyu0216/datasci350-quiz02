@@ -1,0 +1,30 @@
+[
+  {
+    "objectID": "budget-revenue.html",
+    "href": "budget-revenue.html",
+    "title": "Budget and Revenue",
+    "section": "",
+    "text": "Do bigger budgets bring in more money? Figure 1 plots each film’s budget against its worldwide revenue. Films with larger budgets tend to earn more, but the spread is wide, and some of the biggest returns came from relatively cheap films.\n\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\nfilms = pd.read_csv(\"films.csv\")\n\nfig, ax = plt.subplots(figsize=(7, 4))\nax.scatter(films[\"budget_musd\"], films[\"revenue_musd\"], color=\"#1B3A6B\", alpha=0.7)\nax.set_xlabel(\"Budget (US$ millions)\")\nax.set_ylabel(\"Worldwide revenue (US$ millions)\")\nax.spines[[\"top\", \"right\"]].set_visible(False)\nplt.tight_layout()\nplt.show()\n\n\n\n\n\n\n\nFigure 1: Budget against worldwide revenue for each film, in US$ millions"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Box Office Numbers",
+    "section": "",
+    "text": "This site analyses a dataset of 104 popular films released between 1980 and 2025, drawn from 20 franchises plus a set of standalone titles. For each film, the data record its release year, franchise, budget and worldwide revenue (in millions of US dollars), runtime in minutes, and IMDb rating. The pages below look at how budget relates to revenue, how runtime relates to ratings, and how the James Bond films compare.\n\nBudget and Revenue\nRuntime and Ratings\nThe Bond Films\n\nAI usage: I used Claude for rechecking and finding the error of my work."
+  },
+  {
+    "objectID": "runtime-rating.html",
+    "href": "runtime-rating.html",
+    "title": "Runtime and Ratings",
+    "section": "",
+    "text": "Are longer films rated more highly? Figure 1 plots each film’s runtime against its IMDb rating. Longer films tend to score slightly higher, but the relationship is weak.\n\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\nfilms = pd.read_csv(\"films.csv\")\n\nfig, ax = plt.subplots(figsize=(7, 4))\nax.scatter(films[\"runtime_min\"], films[\"imdb_rating\"], color=\"#1B3A6B\", alpha=0.7)\nax.set_xlabel(\"Runtime (minutes)\")\nax.set_ylabel(\"IMDb rating\")\nax.spines[[\"top\", \"right\"]].set_visible(False)\nplt.tight_layout()\nplt.show()\n\n\n\n\n\n\n\nFigure 1: Runtime against IMDb rating for each film\n\n\n\n\n\nMean IMDb rating by decade:\n\nfilms[\"decade\"] = films[\"year\"] // 10 * 10\nfilms.groupby(\"decade\")[\"imdb_rating\"].mean().round(2)\n\ndecade\n1980    8.01\n1990    7.70\n2000    7.94\n2010    7.83\n2020    7.44\nName: imdb_rating, dtype: float64"
+  },
+  {
+    "objectID": "bond.html",
+    "href": "bond.html",
+    "title": "The Bond Films",
+    "section": "",
+    "text": "import pandas as pd\nimport matplotlib.pyplot as plt\n\nfilms = pd.read_csv(\"films.csv\")\nbond = films[films[\"franchise\"] == \"James Bond\"]\nbond = bond.sort_values(\"year\")\n\nfig, ax = plt.subplots(figsize=(7, 4))\nax.plot(bond[\"year\"], bond[\"revenue_musd\"], marker=\"o\", color=\"#1B3A6B\")\nax.set_xlabel(\"Release year\")\nax.set_ylabel(\"Worldwide revenue (US$ millions)\")\nax.spines[[\"top\", \"right\"]].set_visible(False)\nplt.tight_layout()\nplt.show()\n\n\n\n\n\n\n\nFigure 1: Worldwide revenue of each James Bond film, in US$ millions\n\n\n\n\n\nThe dataset covers Bond films released between 1995 and 2021, as shown in Figure 1."
+  }
+]
