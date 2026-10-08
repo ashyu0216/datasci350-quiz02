@@ -170,3 +170,19 @@ The dataset covers Bond films released between `{python} int(bond["year"].min())
 and `{python} int(bond["year"].max())`, as shown in @fig-bond-revenue.
 
 10.
+quarto render
+ls -a
+git add .
+git commit -m "Add site pages and freeze"
+
+11.
+git config user.name "ashyu0216"
+git config user.email "ashleyyu0216@gmail.com"
+quarto publish gh-pages
+
+12.
+https://ashyu0216.github.io/datasci350-quiz02/
+
+13.
+git add commands.txt
+git commit -m "Add command log"
